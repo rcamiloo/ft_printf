@@ -5,7 +5,9 @@ A rotina inicial foi definida em reunião no dia 30/05/2020
 ## Dias e horários de reuniões
 
 **Frequência:** diária (exceto aos domingos)
+
 **Horário:** 21h00
+
 **Duração:** 1h
 
 *Duração e horários e reuniões poderão variar em função das necessidades do projeto.*
@@ -16,7 +18,7 @@ Foi definido como lider o aluno rcamilo-.
 
 ## Canais de comunicação
 
-Será utilizado prioritariamente o *slack*, para nos falarmos e fazermos as reuniões. Porém, caso necessário, segue a lista de telefones dos componentes do squad:
+Será utilizado prioritariamente o **slack**, para nos falarmos e fazermos as reuniões. Porém, caso necessário, segue a lista de telefones dos componentes do squad:
 
 | Nome    | Login    | Telefone      |
 |---------|----------|---------------|
@@ -40,8 +42,8 @@ Considerando-se 15 dias para o projeto, temos:
 
 Ao final dos 15 dias faremos uma reunião de fechamento antes da submissão do projeto para avaliar:
 
-- o que aprendemos
-- o que foi ruim
-- o que pode melhorar
+- o que aprendemos?
+- o que foi ruim?
+- o que pode melhorar?
 - feedback entre pares
-- caso o projeto não tenha sido satisfatoriamente finalizado, quais os próximos passos
+- caso o projeto não tenha sido satisfatoriamente finalizado, quais os próximos passos?
