@@ -47,3 +47,5 @@ Ao final dos 15 dias faremos uma reunião de fechamento antes da submissão do p
 - o que pode melhorar?
 - feedback entre pares
 - caso o projeto não tenha sido satisfatoriamente finalizado, quais os próximos passos?
+
+continua.
