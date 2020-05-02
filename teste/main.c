@@ -55,7 +55,7 @@ int     ft_printf(const char *input, ...)
 		else
 			ft_putchar(*input);
 		input++;
-														        }
+	}
 	va_end(args);
 	return (0);
 }
