@@ -36,11 +36,51 @@ void    ft_putnbr(int nb)
 	ft_putchar(x % 10 + '0');
 }
 
+void	*ft_memset(void *dest, int c, size_t len)
+{
+	if (len > 0)
+	{
+		while (len--)
+		{
+			*(unsigned char *)(dest + len) = (unsigned char)(c);
+		}
+	}
+	return (dest);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, '\0', n);
+}
+
+void	ft_puthex(__uint64_t nb)
+{
+	char hex[16];
+	int  tmp;
+	int  i;
+
+	ft_bzero(hex, 16);
+	i = 0;
+	while (nb)
+	{
+		tmp = nb % 16;
+		hex[i] = (tmp + (tmp >= 10 ? ('a' - 10) : '0'));
+		nb /= 16;
+		i++;
+	}
+	while (i >= 0)
+	{
+	i--;
+	ft_putchar(hex[i]);
+	}
+}
+
 int     ft_printf(const char *input, ...)
 {
 	int d;
 	char c;
 	const char *s;
+	unsigned int x;
 	va_list args;
 	va_start(args, input);
 	while(*input != '\0')
@@ -63,6 +103,11 @@ int     ft_printf(const char *input, ...)
 				s = va_arg(args, char *);
 				ft_printf(s);
 			}
+			if (*input == 'x')
+			{
+				x = va_arg(args, unsigned int);
+				ft_puthex(x);
+			}
 		}
 		else
 			ft_putchar(*input);
@@ -77,6 +122,7 @@ int     main(void)
 	int i;
 	char c;
 	char *s ="hello world";
+	int hex =0xfafa;
 	
 	c = 'k';
 
@@ -100,6 +146,10 @@ int     main(void)
 	ft_printf("\n");
 	ft_printf("%s		<ft_printf\n", s);
 	printf("%s		<printf\n", s);
-
+	ft_printf("\n");
+	ft_printf("======hex=x====\n");
+	ft_printf("\n");
+	ft_printf("x = %x d = %d	<ft_printf\n", hex, hex);
+	printf("x = %x d = %d	<printf\n", hex, hex);
 	return (0);
 }
