@@ -40,6 +40,7 @@ int     ft_printf(const char *input, ...)
 {
 	int d;
 	char c;
+	const char *s;
 	va_list args;
 	va_start(args, input);
 	while(*input != '\0')
@@ -52,10 +53,15 @@ int     ft_printf(const char *input, ...)
 				d = va_arg(args, int);
 				ft_putnbr(d);
 			}
-			if(*input == 'c')
+			if (*input == 'c')
 			{
 				c = va_arg(args, int);
 				ft_putchar(c);
+			}
+			if (*input == 's')
+			{
+				s = va_arg(args, char *);
+				ft_printf(s);
 			}
 		}
 		else
@@ -70,6 +76,7 @@ int     main(void)
 {
 	int i;
 	char c;
+	char *s ="hello world";
 	
 	c = 'k';
 
@@ -81,13 +88,18 @@ int     main(void)
 	ft_printf("\n");
 	ft_printf("======int=d====\n");
 	ft_printf("\n");
-	ft_printf("%d%d%d	<ft_printf\n", i, i, i);
-	printf("%d%d%d	<printf\n", i, i , i);
+	ft_printf("%d%d%d			<ft_printf\n", i, i, i);
+	printf("%d%d%d			<printf\n", i, i , i);
 	ft_printf("\n");
 	ft_printf("======char=c====\n");
 	ft_printf("\n");
 	ft_printf("this is a char -> %c	<ft_printf\n", c);
 	printf("this is a char -> %c	<printf\n", c);
 	ft_printf("\n");
+	ft_printf("======str=s=====\n");
+	ft_printf("\n");
+	ft_printf("%s		<ft_printf\n", s);
+	printf("%s		<printf\n", s);
+
 	return (0);
 }
