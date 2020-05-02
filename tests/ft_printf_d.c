@@ -6,7 +6,7 @@
 /*   By: esuguimo <esuguimo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/02 14:58:19 by esuguimo          #+#    #+#             */
-/*   Updated: 2020/05/02 18:07:08 by esuguimo         ###   ########.fr       */
+/*   Updated: 2020/05/02 18:30:42 by esuguimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,9 @@ int main()
 {
     int a;
     a = -3;
-    ft_printf("eri%%\-6d\\nca = eri%-6d\nca\n", a);
-    ft_printf("largura, espaço = eri%6d\nca\n", a);
-    ft_printf("flag menos, largura, zeros = %-06d\n\n", a);
-    ft_printf("largura, zeros = %06d\n\n", a);
+    ft_printf("alinhamento à esq, espaço vazio= eri%-6d\nca\n", a);
+    ft_printf("espaço, alinhamento à direita = eri%6d\nca\n", a);
+    ft_printf("alinhamento à esq, zeros = %-06d\n\n", a);
+    ft_printf("zeros, alinhamento à direita = %06d\n\n", a);
+    ft_printf("sem flags = %d\n\n", a);
 }
