@@ -6,21 +6,20 @@
 /*   By: esuguimo <esuguimo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/02 14:58:19 by esuguimo          #+#    #+#             */
-/*   Updated: 2020/05/02 14:58:36 by esuguimo         ###   ########.fr       */
+/*   Updated: 2020/05/02 17:48:55 by esuguimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include <string.h>
 
 int ft_printf(const char * str, ...)
 {
-    int j = 0;
-    int i;
-    int y = 0;
+    int decimal;
     int len;
+    int width = 0;
+    int fill = 0;
     va_list args;
     va_start(args, str);
 
@@ -35,47 +34,47 @@ int ft_printf(const char * str, ...)
               if (*str == '0')
               {
                 str++;
-                y = atoi(str);
+                width = atoi(str);
                 str++;
                 if (*str == 'd')
                 {
-                  i = va_arg(args, int);
+                  decimal = va_arg(args, int);
                   len = strlen(str);
-                  printf("%d", i);
-                  while (j < (y - len))
+                  printf("%d", decimal);
+                  while (fill < (width - len))
                   {
                     printf("%d", 0);
-                    j++;
+                    fill++;
                   }
                   str++;
                 }
               }
               else if (*str != 'd' && *str > 0)
               {
-                y = atoi(str);
+                width = atoi(str);
                 str++;
                 if (*str == 'd')
                 {
-                  i = va_arg(args, int);
+                  decimal = va_arg(args, int);
                   len = strlen(str);
-                  printf("%d", i);
-                  while (j < (y - len))
+                  printf("%d", decimal);
+                  while (fill < (width - len))
                   {
-                    printf("%d", ' ');
-                    j++;
+                    printf("%c", ' ');
+                    fill++;
                   }
                   str++;
                 }
               }
               else if (*str == 'd')
               {
-                  i = va_arg(args, int);
+                  decimal = va_arg(args, int);
                   len = strlen(str);
-                  printf("%d", i);
-                  while (j < (y - len))
+                  printf("%d", decimal);
+                  while (fill < (width - len))
                   {
-                    printf("%d", ' ');
-                    j++;
+                    printf("%c", ' ');
+                    fill++;
                   }
                   str++;
               }
@@ -83,42 +82,42 @@ int ft_printf(const char * str, ...)
             else if (*str == '0')
             {
                 str++;
-                y = atoi(str);
+                width = atoi(str);
                 str++;
                 if (*str == 'd')
                 {
-                  i = va_arg(args, int);
+                  decimal = va_arg(args, int);
                   len = strlen(str);
-                  while (j < (y - len))
+                  while (fill < (width - len))
                   {
                     printf("%d", 0);
-                    j++;
+                    fill++;
                   }
-                  printf("%d", i);
+                  printf("%d", decimal);
                   str++; 
                 }
             }
             else if (*str != 'd' && *str > 0)
             {
-              y = atoi(str);
+              width = atoi(str);
               str++;
               if (*str == 'd')
               {
-                i = va_arg(args, int);
+                decimal = va_arg(args, int);
                 len = strlen(str);
-                while (j < (y - len))
+                while (fill < (width - len))
                 {
-                  printf("%d", '\0');
-                  j++;
+                  printf("%c", ' ');
+                  fill++;
                 }
-                printf("%d", i);
+                printf("%d", decimal);
                 str++;
               }
             }
             else if (*str == 'd')
             {
-              i = va_arg(args, int);
-              printf("%d", i);
+              decimal = va_arg(args, int);
+              printf("%d", decimal);
               str++;
             }
         }
@@ -136,6 +135,6 @@ int main()
 {
     int a;
     a = -3;
-    ft_printf("erica %d\n", a);
+    ft_printf("eri %-5d\nca", a);
     
 }
