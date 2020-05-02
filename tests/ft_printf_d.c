@@ -6,13 +6,14 @@
 /*   By: esuguimo <esuguimo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/02 14:58:19 by esuguimo          #+#    #+#             */
-/*   Updated: 2020/05/02 17:48:55 by esuguimo         ###   ########.fr       */
+/*   Updated: 2020/05/02 18:07:08 by esuguimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <string.h>
 
 int ft_printf(const char * str, ...)
 {
@@ -135,6 +136,8 @@ int main()
 {
     int a;
     a = -3;
-    ft_printf("eri %-5d\nca", a);
-    
+    ft_printf("eri%%\-6d\\nca = eri%-6d\nca\n", a);
+    ft_printf("largura, espaço = eri%6d\nca\n", a);
+    ft_printf("flag menos, largura, zeros = %-06d\n\n", a);
+    ft_printf("largura, zeros = %06d\n\n", a);
 }
