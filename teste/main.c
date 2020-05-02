@@ -39,6 +39,7 @@ void    ft_putnbr(int nb)
 int     ft_printf(const char *input, ...)
 {
 	int d;
+	char c;
 	va_list args;
 	va_start(args, input);
 	while(*input != '\0')
@@ -50,6 +51,11 @@ int     ft_printf(const char *input, ...)
 			{
 				d = va_arg(args, int);
 				ft_putnbr(d);
+			}
+			if(*input == 'c')
+			{
+				c = va_arg(args, int);
+				ft_putchar(c);
 			}
 		}
 		else
@@ -63,12 +69,25 @@ int     ft_printf(const char *input, ...)
 int     main(void)
 {
 	int i;
+	char c;
+	
+	c = 'k';
+
 	i = 0;
 	while(i < 3)
 	{
 		i++;
 	}
-	ft_printf("bbb%d\n", i);
-	printf("bbb%d\n", i);
+	ft_printf("\n");
+	ft_printf("======int=d====\n");
+	ft_printf("\n");
+	ft_printf("%d%d%d	<ft_printf\n", i, i, i);
+	printf("%d%d%d	<printf\n", i, i , i);
+	ft_printf("\n");
+	ft_printf("======char=c====\n");
+	ft_printf("\n");
+	ft_printf("this is a char -> %c	<ft_printf\n", c);
+	printf("this is a char -> %c	<printf\n", c);
+	ft_printf("\n");
 	return (0);
 }
