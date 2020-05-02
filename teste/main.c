@@ -68,7 +68,7 @@ void	ft_puthex(__uint64_t nb)
 		nb /= 16;
 		i++;
 	}
-	while (i >= 0)
+	while (i >= 1)
 	{
 	i--;
 	ft_putchar(hex[i]);
@@ -88,11 +88,24 @@ int     ft_printf(const char *input, ...)
 		if (*input == '%')
 		{
 			input++;
+			if (*input == '+')
+			{
+				input++;
+				if (*input == 'd')
+				{
+					input++;
+					d = va_arg(args, int);
+					if ( d >= 0)
+						ft_putchar('+');
+					ft_putnbr(d);
+				}
+				ft_putchar(*input);
+			}
 			if (*input == 'd')
 			{
 				d = va_arg(args, int);
 				ft_putnbr(d);
-			}
+			}	
 			if (*input == 'c')
 			{
 				c = va_arg(args, int);
@@ -120,6 +133,7 @@ int     ft_printf(const char *input, ...)
 int     main(void)
 {
 	int i;
+	int n = -1;
 	char c;
 	char *s ="hello world";
 	int hex =0xfafa;
@@ -151,5 +165,17 @@ int     main(void)
 	ft_printf("\n");
 	ft_printf("x = %x d = %d	<ft_printf\n", hex, hex);
 	printf("x = %x d = %d	<printf\n", hex, hex);
+	ft_printf("\n");
+	ft_printf("<<<<<<<< FLAGS >>>>>>>>\n");
+	ft_printf("\n");
+	ft_printf("======= + =======\n");
+	ft_printf("flag + = %+d positivo	<ft_printf\n", i);
+	printf("flag + = %+d positivo	<printf\n", i);
+	ft_printf("\n");
+	ft_printf("flag + = %+d negativo	<ft_printf\n", n);
+	ft_printf("flag + = %+d negativo	<printf\n", n);
+	ft_printf("\n");
+	ft_printf("flag + = %+d zero	<ft_printf\n", 0);
+	printf("flag + = %+d zero	<printf\n", 0);
 	return (0);
 }
