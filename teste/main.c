@@ -36,6 +36,41 @@ void    ft_putnbr(int nb)
 	ft_putchar(x % 10 + '0');
 }
 
+int	ft_isnum(char n)
+{
+	if (n < '0' || n > '9')
+		return  (0);	
+	return (1);
+}
+
+int		ft_atoi(const char *str)
+{
+	int i;
+	int n;
+	int sinal;
+
+	i = 0;
+	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\r' ||
+			str[i] == '\v' || str[i] == '\f' || str[i] == ' ')
+		i++;
+	sinal = 0;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sinal = 1;
+		i++;
+	}
+	n = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		n = n * 10 + str[i] - '0';
+		i++;
+	}
+	if (sinal > 0)
+		n = n * (-1);
+	return (n);
+}
+
 void	*ft_memset(void *dest, int c, size_t len)
 {
 	if (len > 0)
@@ -79,8 +114,12 @@ int     ft_printf(const char *input, ...)
 {
 	int d;
 	char c;
+	int valnum;
 	const char *s;
 	unsigned int x;
+
+	//valnum tem que ser o atoi do input
+
 	va_list args;
 	va_start(args, input);
 	while(*input != '\0')
@@ -100,6 +139,22 @@ int     ft_printf(const char *input, ...)
 					ft_putnbr(d);
 				}
 				ft_putchar(*input);
+			}
+			if (*input == '0')
+			{
+				input++;
+				valnum = ft_atoi(input);
+				while(ft_isnum(*input))
+				{
+					input++;
+				}
+				while (valnum > 2)
+				{
+					ft_putchar('0');
+					valnum--;
+				}	
+				ft_putnbr(d);
+			
 			}
 			if (*input == 'd')
 			{
@@ -132,50 +187,65 @@ int     ft_printf(const char *input, ...)
 
 int     main(void)
 {
-	int i;
+	int i = 3;
 	int n = -1;
-	char c;
+	char c = 'k';
 	char *s ="hello world";
 	int hex =0xfafa;
-	
-	c = 'k';
+	ft_printf("\n");
+	ft_printf("VALORES = i = %d / n = %d / c = %c / *s = %s / hex = %x\n", i, n, c, s, hex);
+	ft_printf("\n");
+	ft_printf("<<<<<<<<<<<<<<<<<<<<<<<<<<< CONVERSIONS >>>>>>>>>>>>>>>>>>>>>>>>>\n");
+	ft_printf("\n");
+	ft_printf("====================( int d )==================\n");
+	ft_printf("\n");
+	ft_printf("	%d%d%d			<ft_printf\n", i, i, i);
+	printf("	%d%d%d			<printf\n", i, i , i);
+	ft_printf("\n");
+	ft_printf("=================( char c )====================\n");
+	ft_printf("\n");
+	ft_printf("	this is char c -> %c	<ft_printf\n", c);
+	printf("	this is char c -> %c	<printf\n", c);
+	ft_printf("\n");
+	ft_printf("===================( str s )===================\n");
+	ft_printf("\n");
+	ft_printf("	%s		<ft_printf\n", s);
+	printf("	%s		<printf\n", s);
+	ft_printf("\n");
+	ft_printf("==================( hex x )====================\n");
+	ft_printf("\n");
+	ft_printf("	x = %x d = %d	<ft_printf\n", hex, hex);
+	printf("	x = %x d = %d	<printf\n", hex, hex);
+	ft_printf("\n");
+	ft_printf("<<<<<<<<<<<<<<<<<<<<<<<<<<<< FLAGS >>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
+	ft_printf("\n");
+	ft_printf("===================( + )=====================\n");
+	ft_printf("\n");
+	ft_printf("	flag + = %+d positivo	<ft_printf\n", i);
+	printf("	flag + = %+d positivo	<printf\n", i);
+	ft_printf("\n");
+	ft_printf("	flag + = %+d negativo	<ft_printf\n", n);
+	ft_printf("	flag + = %+d negativo	<printf\n", n);
+	ft_printf("\n");
+	ft_printf("	flag + = %+d zero	<ft_printf\n", 0);
+	printf("	flag + = %+d zero	<printf\n", 0);
+	ft_printf("\n");
+	ft_printf("===================( - )=====================\n");
+	ft_printf("\n");
+	printf("	flag - = %-d positivo	<printf\n", i);
+	printf("	flag - = %-d negativo	<printf\n", n);
+	ft_printf("\n");
+	ft_printf("===================( 0 )=====================\n");
+	ft_printf("\n");
+	ft_printf("	flag 02 = %02d		<ft_printf\n", i);
+	printf("	flag 02 = %02d		<printf\n", i);
+	ft_printf("	flag 010 = %010d	<ft_printf\n", i);
+	printf("	flag 010 = %010d	<printf\n", i);
+	ft_printf("	flag 01 = %01d		<ft_printf\n", i);
+	printf("	flag 01 = %01d		<printf\n", i);
+	//ft_printf("flag 00 = %00d	<ft_printf\n", i);
+	//printf("flag 00 = %00d		<printf\n", i);
+	ft_printf("\n");
 
-	i = 0;
-	while(i < 3)
-	{
-		i++;
-	}
-	ft_printf("\n");
-	ft_printf("======int=d====\n");
-	ft_printf("\n");
-	ft_printf("%d%d%d			<ft_printf\n", i, i, i);
-	printf("%d%d%d			<printf\n", i, i , i);
-	ft_printf("\n");
-	ft_printf("======char=c====\n");
-	ft_printf("\n");
-	ft_printf("this is a char -> %c	<ft_printf\n", c);
-	printf("this is a char -> %c	<printf\n", c);
-	ft_printf("\n");
-	ft_printf("======str=s=====\n");
-	ft_printf("\n");
-	ft_printf("%s		<ft_printf\n", s);
-	printf("%s		<printf\n", s);
-	ft_printf("\n");
-	ft_printf("======hex=x====\n");
-	ft_printf("\n");
-	ft_printf("x = %x d = %d	<ft_printf\n", hex, hex);
-	printf("x = %x d = %d	<printf\n", hex, hex);
-	ft_printf("\n");
-	ft_printf("<<<<<<<< FLAGS >>>>>>>>\n");
-	ft_printf("\n");
-	ft_printf("======= + =======\n");
-	ft_printf("flag + = %+d positivo	<ft_printf\n", i);
-	printf("flag + = %+d positivo	<printf\n", i);
-	ft_printf("\n");
-	ft_printf("flag + = %+d negativo	<ft_printf\n", n);
-	ft_printf("flag + = %+d negativo	<printf\n", n);
-	ft_printf("\n");
-	ft_printf("flag + = %+d zero	<ft_printf\n", 0);
-	printf("flag + = %+d zero	<printf\n", 0);
 	return (0);
 }
