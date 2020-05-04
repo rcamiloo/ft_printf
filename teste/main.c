@@ -113,11 +113,9 @@ void	ft_puthex(__uint64_t nb)
 int     ft_printf(const char *input, ...)
 {
 	int d;
-	char c;
 	int valnum;
-	const char *s;
 	unsigned int x;
-
+	char *s;
 	//valnum tem que ser o atoi do input
 
 	va_list args;
@@ -140,31 +138,45 @@ int     ft_printf(const char *input, ...)
 				}
 				ft_putchar(*input);
 			}
+			if (*input == '-')
+			{
+				input++;
+				valnum = ft_atoi(input);
+				while (ft_isnum(*input))
+					input++;
+				if (*input == 'd')
+				{
+					input++;
+					d = va_arg(args, int);
+					ft_putnbr(d);
+				}
+				while (valnum > 0)
+				{
+					valnum--;
+					ft_putchar(' ');
+				}
+
+			}
 			if (*input == '0')
 			{
 				input++;
 				valnum = ft_atoi(input);
 				while(ft_isnum(*input))
-				{
 					input++;
-				}
-				while (valnum > 2)
+				while (valnum > 1)
 				{
-					ft_putchar('0');
 					valnum--;
-				}	
-				ft_putnbr(d);
-			
+					ft_putchar('0');
+				}
+	
 			}
 			if (*input == 'd')
 			{
-				d = va_arg(args, int);
-				ft_putnbr(d);
+				ft_putnbr(va_arg(args, int));
 			}	
 			if (*input == 'c')
 			{
-				c = va_arg(args, int);
-				ft_putchar(c);
+				ft_putchar(va_arg(args, int));
 			}
 			if (*input == 's')
 			{
@@ -192,6 +204,7 @@ int     main(void)
 	char c = 'k';
 	char *s ="hello world";
 	int hex =0xfafa;
+
 	ft_printf("\n");
 	ft_printf("VALORES = i = %d / n = %d / c = %c / *s = %s / hex = %x\n", i, n, c, s, hex);
 	ft_printf("\n");
@@ -232,8 +245,11 @@ int     main(void)
 	ft_printf("\n");
 	ft_printf("===================( - )=====================\n");
 	ft_printf("\n");
-	printf("	flag - = %-d positivo	<printf\n", i);
-	printf("	flag - = %-d negativo	<printf\n", n);
+	ft_printf("	flag - = %-10d positivo	<ft_printf\n", i);
+	printf("	flag - = %-10d positivo	<printf\n", i);
+	ft_printf("	flag - = %-1d positivo	<ft_printf\n", i);
+	printf("	flag - = %-1d positivo	<printf\n", i);
+	printf("	flag - = %-5d negativo	<printf\n", n);
 	ft_printf("\n");
 	ft_printf("===================( 0 )=====================\n");
 	ft_printf("\n");
