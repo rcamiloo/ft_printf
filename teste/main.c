@@ -180,7 +180,7 @@ int     ft_printf(const char *input, ...)
 			}	
 			if (*input == 'c')
 			{
-				ft_putchar(va_arg(args, int));
+				ft_putchar((char)va_arg(args, int));
 			}
 			if (*input == 's')
 			{
@@ -197,6 +197,11 @@ int     ft_printf(const char *input, ...)
 				p = va_arg(args, unsigned long int);
 				ft_printf("0x");
 				ft_puthex(p);
+			}
+			if (*input == 'u')
+			{
+				x = va_arg(args, unsigned int);
+				ft_putnbr(x);
 			}
 		}
 		else
@@ -215,6 +220,7 @@ int     main(void)
 	char *s ="hello world";
 	int hex =0xfafa;
 
+
 	ft_printf("\n");
 	ft_printf("VALORES = i = %d / n = %d / c = %c / *s = %s / hex = %x\n", i, n, c, s, hex);
 	ft_printf("\n");
@@ -222,8 +228,8 @@ int     main(void)
 	ft_printf("\n");
 	ft_printf("====================( int d int i )==================\n");
 	ft_printf("\n");
-	ft_printf("	%d%i			<ft_printf\n", i, i);
-	printf("	%d%i			<printf\n", i, i);
+	ft_printf("	d = %d / i = %i			<ft_printf\n", i, i);
+	printf("	d = %d / i = %i			<printf\n", i, i);
 	ft_printf("\n");
 	ft_printf("=================( char c )====================\n");
 	ft_printf("\n");
@@ -240,9 +246,20 @@ int     main(void)
 	ft_printf("	x = %x d = %d	<ft_printf\n", hex, hex);
 	printf("	x = %x d = %d	<printf\n", hex, hex);
 	ft_printf("\n");
-	ft_printf("===================( void * p )================\n");
+	ft_printf("==========( unsigned long int * p )=============\n");
+	ft_printf("\n");
 	ft_printf("	str ptr = %p		<ft_printf\n", s);
 	printf("	str ptr = %p		<printf\n", s);
+	ft_printf("\n");
+	ft_printf("=================( unsigned int u )==============\n");
+	ft_printf("\n");
+	ft_printf("	i = %u		<ft_printf\n", i);
+	printf("	i = %u		<printf\n", i);
+	ft_printf("	n = %u		<ft_printf\n", n);
+	printf("	n = %u		<printf\n", n);
+	ft_printf("	hex = %u	<ft_printf\n", hex);
+	printf("	hex = %u	<printf\n", hex);
+	ft_printf("\n");
 	ft_printf("<<<<<<<<<<<<<<<<<<<<<<<<<<<< FLAGS >>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
 	ft_printf("\n");
 	ft_printf("===================( + )=====================\n");
