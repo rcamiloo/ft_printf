@@ -18,7 +18,7 @@ int     ft_printf(const char *input, ...)
 	int valnum;
 	unsigned int x;
 	char *s;
-	//unsigned long int p;
+	unsigned long int p;
 	//valnum tem que ser o atoi do input
 
 	va_list args;
@@ -28,6 +28,8 @@ int     ft_printf(const char *input, ...)
 		if (*input == '%')
 		{
 			input++;
+			if (*input == '%')
+				ft_putchar(*input);
 			if (*input == '+')
 			{
 				input++;
@@ -55,6 +57,13 @@ int     ft_printf(const char *input, ...)
 				}
 				if (d < 0)
 					valnum--;
+				if (*input == 'c')
+					ft_putchar((char)va_arg(args, int));
+				if(*input == 's')
+				{
+					s = va_arg(args, char *);
+					ft_printf(s);
+				}
 				while (valnum > 1)
 				{
 					ft_putchar(' ');
@@ -89,22 +98,22 @@ int     ft_printf(const char *input, ...)
 				s = va_arg(args, char *);
 				ft_printf(s);
 			}
-			/*if (*input == 'x')
+			if (*input == 'x')
 			{
 				x = va_arg(args, unsigned int);
 				ft_puthex(x);
-			}*/
-			/*if (*input == 'X')
+			}
+			if (*input == 'X')
 			{
 				x = va_arg(args, unsigned int);
 				ft_puthex(x);
-			}*/
-			/*if (*input == 'p')
+			}
+			if (*input == 'p')
 			{
 				p = va_arg(args, unsigned long int);
 				ft_printf("0x");
 				ft_puthex(p);
-			}*/
+			}
 			if (*input == 'u')
 			{
 				x = va_arg(args, unsigned int);

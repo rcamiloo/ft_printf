@@ -126,6 +126,7 @@ int		ft_tolower(unsigned int c)
 	return (c);
 }
 
+
 int     ft_printf(const char *input, ...)
 {
 	int d;
@@ -142,6 +143,8 @@ int     ft_printf(const char *input, ...)
 		if (*input == '%')
 		{
 			input++;
+			if (*input == '%')
+				ft_putchar(*input);
 			if (*input == '+')
 			{
 				input++;
@@ -169,6 +172,13 @@ int     ft_printf(const char *input, ...)
 				}
 				if (d < 0)
 					valnum--;
+				if (*input == 'c')
+					ft_putchar((char)va_arg(args, int));
+				if(*input == 's')
+				{
+					s = va_arg(args, char *);
+					ft_printf(s);
+				}
 				while (valnum > 1)
 				{
 					ft_putchar(' ');
@@ -232,6 +242,7 @@ int     ft_printf(const char *input, ...)
 	va_end(args);
 	return (0);
 }
+
 
 int     main(void)
 {
