@@ -55,6 +55,11 @@ int     ft_printf(const char *input, ...)
 					ft_printf("valnum = %d\n", valnum);
 					valnum--;
 				}*/
+				if (*input == 's')
+				{
+					input++;
+					ft_putchar(*input);
+				}
 			}
 			if (*input == '-')
 			{

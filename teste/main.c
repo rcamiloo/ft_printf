@@ -179,6 +179,11 @@ int     ft_printf(const char *input, ...)
 					ft_printf("valnum = %d\n", valnum);
 					valnum--;
 				}*/
+				if (*input == 's')
+				{
+					input++;
+					ft_putchar(*input);
+				}
 			}
 			if (*input == '-')
 			{
@@ -410,7 +415,8 @@ int     main(void)
 	printf("%5s\n", NULL);
 	ft_printf("%1.4s<	<ft_printf\n", s);
 	printf("%1.4s<	<printf\n", s);
-	
+	ft_printf("%.s<	<ft_printf\n", NULL);
+	printf("%.s<	<printf\n", NULL);	
 
 
 	return (0);
