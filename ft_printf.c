@@ -29,6 +29,7 @@ int     ft_printf(const char *input, ...)
 		if (*input == '%')
 		{
 			input++;
+			valnum = ft_atoi(input);
 			if (*input == '%')
 				ft_putchar(*input);
 			if (*input == '+')
@@ -67,7 +68,10 @@ int     ft_printf(const char *input, ...)
 				{
 					input++;
 					s = va_arg(args, char *);
-					ft_printf(s);
+					if (s == 0)
+						ft_printf("(null)");
+					else
+						ft_printf(s);
 				}
 				length = ft_strlen(s);
 				while (length >= 0)
@@ -96,6 +100,8 @@ int     ft_printf(const char *input, ...)
 				}
 
 			}
+			while (ft_isnum(*input))
+				input++;
 			if (*input == 'd' || *input == 'i')
 			{
 				ft_putnbr(va_arg(args, int));
@@ -107,7 +113,10 @@ int     ft_printf(const char *input, ...)
 			if (*input == 's')
 			{
 				s = va_arg(args, char *);
-				ft_printf(s);
+				if (s == 0)
+					ft_printf("(null)");
+				else
+					ft_printf(s);
 			}
 			if (*input == 'x')
 			{
@@ -122,7 +131,7 @@ int     ft_printf(const char *input, ...)
 			if (*input == 'p')
 			{
 				p = va_arg(args, unsigned long int);
-				if ( p == 0)
+				if (p == 0)
 					ft_printf("(nil)");
 				else
 				{
