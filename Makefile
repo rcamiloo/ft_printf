@@ -20,7 +20,8 @@ SRC =	ft_puthex.c \
 			ft_atoi.c\
 			ft_memset.c\
 			ft_bzero.c\
-			ft_printf.c
+			ft_printf.c\
+			ft_strlen.c
 
 
 OBJ = $(SRC:.c=.o)

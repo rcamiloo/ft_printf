@@ -16,6 +16,7 @@ int     ft_printf(const char *input, ...)
 {
 	int d;
 	int valnum;
+	int length;
 	unsigned int x;
 	char *s;
 	unsigned long int p;
@@ -58,11 +59,21 @@ int     ft_printf(const char *input, ...)
 				if (d < 0)
 					valnum--;
 				if (*input == 'c')
+				{
+					input++;
 					ft_putchar((char)va_arg(args, int));
+				}
 				if(*input == 's')
 				{
+					input++;
 					s = va_arg(args, char *);
 					ft_printf(s);
+				}
+				length = ft_strlen(s);
+				while (length >= 0)
+				{
+				length--;
+				valnum--;
 				}
 				while (valnum > 1)
 				{
@@ -111,8 +122,13 @@ int     ft_printf(const char *input, ...)
 			if (*input == 'p')
 			{
 				p = va_arg(args, unsigned long int);
-				ft_printf("0x");
-				ft_puthex(p);
+				if ( p == 0)
+					ft_printf("(nil)");
+				else
+				{
+					ft_printf("0x");
+					ft_puthex(p);
+				}
 			}
 			if (*input == 'u')
 			{

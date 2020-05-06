@@ -126,11 +126,21 @@ int		ft_tolower(unsigned int c)
 	return (c);
 }
 
+size_t		ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
 int     ft_printf(const char *input, ...)
 {
 	int d;
 	int valnum;
+	int length;
 	unsigned int x;
 	char *s;
 	unsigned long int p;
@@ -173,11 +183,21 @@ int     ft_printf(const char *input, ...)
 				if (d < 0)
 					valnum--;
 				if (*input == 'c')
+				{
+					input++;
 					ft_putchar((char)va_arg(args, int));
+				}
 				if(*input == 's')
 				{
+					input++;
 					s = va_arg(args, char *);
 					ft_printf(s);
+				}
+				length = ft_strlen(s);
+				while (length >= 0)
+				{
+				length--;
+				valnum--;
 				}
 				while (valnum > 1)
 				{
@@ -199,6 +219,11 @@ int     ft_printf(const char *input, ...)
 					ft_putchar('0');
 				}
 
+			}
+			while (ft_isnum(*input))
+			{
+				valnum = ft_atoi(input);
+				input++;
 			}
 			if (*input == 'd' || *input == 'i')
 			{
@@ -226,8 +251,13 @@ int     ft_printf(const char *input, ...)
 			if (*input == 'p')
 			{
 				p = va_arg(args, unsigned long int);
-				ft_printf("0x");
-				ft_puthex(p);
+				if (p == 0)
+					ft_printf("(nil)");
+				else
+				{
+					ft_printf("0x");
+					ft_puthex(p);
+				}
 			}
 			if (*input == 'u')
 			{
@@ -326,6 +356,16 @@ int     main(void)
 	//ft_printf("flag 00 = %00d	<ft_printf\n", i);
 	//printf("flag 00 = %00d		<printf\n", i);
 	ft_printf("\n");
+	ft_printf("=========== << novos testes >> ================\n");
+	ft_printf("\n");
+	//ft_printf("	%5%\n");
+	//printf("	%5%\n");
+	ft_printf("	%-c	<ft_printf\n", c);
+	printf("	%-c	<printf\n", c);
+	ft_printf("	%p	<ft_printf\n", NULL);
+	printf("	%p	<printf\n", NULL);
+	ft_printf("%-5s<<\n","goes over");
+	printf("%-5s<<\n","goes over");
 
 	return (0);
 }

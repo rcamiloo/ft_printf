@@ -32,5 +32,6 @@ void	*ft_memset(void *dest, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
 int	ft_printf(const char *fmt, ...);
 void	ft_puthex(unsigned long int nb);
+size_t		ft_strlen(const char *s);
 
 #endif
