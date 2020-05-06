@@ -39,7 +39,7 @@ void    ft_putnbr(int nb)
 int	ft_isnum(char n)
 {
 	if (n < '0' || n > '9')
-		return  (0);	
+		return  (0);
 	return (1);
 }
 
@@ -88,7 +88,7 @@ void	ft_bzero(void *s, size_t n)
 	ft_memset(s, '\0', n);
 }
 
-void	ft_puthex(__uint64_t nb)
+void	ft_puthex(unsigned long int nb)
 {
 	char hex[16];
 	int  tmp;
@@ -108,6 +108,22 @@ void	ft_puthex(__uint64_t nb)
 	i--;
 	ft_putchar(hex[i]);
 	}
+}
+
+int		ft_toupper(unsigned int c)
+{
+	if (c >= 'a' && c <= 'z')
+	{
+		c -= 32;
+	}
+	return (c);
+}
+
+int		ft_tolower(unsigned int c)
+{
+	if (c >= 'A' && c <= 'Z')
+		c += 32;
+	return (c);
 }
 
 int     ft_printf(const char *input, ...)
@@ -172,12 +188,12 @@ int     ft_printf(const char *input, ...)
 					valnum--;
 					ft_putchar('0');
 				}
-	
+
 			}
 			if (*input == 'd' || *input == 'i')
 			{
 				ft_putnbr(va_arg(args, int));
-			}	
+			}
 			if (*input == 'c')
 			{
 				ft_putchar((char)va_arg(args, int));
@@ -188,6 +204,11 @@ int     ft_printf(const char *input, ...)
 				ft_printf(s);
 			}
 			if (*input == 'x')
+			{
+				x = va_arg(args, unsigned int);
+				ft_puthex(x);
+			}
+			if (*input == 'X')
 			{
 				x = va_arg(args, unsigned int);
 				ft_puthex(x);
@@ -245,6 +266,8 @@ int     main(void)
 	ft_printf("\n");
 	ft_printf("	x = %x d = %d	<ft_printf\n", hex, hex);
 	printf("	x = %x d = %d	<printf\n", hex, hex);
+	ft_printf("	X = %X		<ft_printf\n", hex);
+	printf("	X = %X		<printf\n",  hex);
 	ft_printf("\n");
 	ft_printf("==========( unsigned long int * p )=============\n");
 	ft_printf("\n");

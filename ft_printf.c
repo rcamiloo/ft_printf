@@ -10,13 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libftprintf.h"
+
 int     ft_printf(const char *input, ...)
 {
 	int d;
 	int valnum;
 	unsigned int x;
 	char *s;
-	unsigned long int p;
+	//unsigned long int p;
 	//valnum tem que ser o atoi do input
 
 	va_list args;
@@ -80,28 +82,33 @@ int     ft_printf(const char *input, ...)
 			}
 			if (*input == 'c')
 			{
-				ft_putchar(va_arg(args, int));
+				ft_putchar((char)va_arg(args, int));
 			}
 			if (*input == 's')
 			{
 				s = va_arg(args, char *);
 				ft_printf(s);
 			}
-			if (*input == 'x')
+			/*if (*input == 'x')
 			{
 				x = va_arg(args, unsigned int);
 				ft_puthex(x);
-			}
-			if (*input == 'p')
+			}*/
+			/*if (*input == 'X')
+			{
+				x = va_arg(args, unsigned int);
+				ft_puthex(x);
+			}*/
+			/*if (*input == 'p')
 			{
 				p = va_arg(args, unsigned long int);
 				ft_printf("0x");
 				ft_puthex(p);
-			}
+			}*/
 			if (*input == 'u')
 			{
 				x = va_arg(args, unsigned int);
-				ft_puthex(x);
+				ft_putnbr(x);
 			}
 		}
 		else
