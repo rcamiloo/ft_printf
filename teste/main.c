@@ -169,6 +169,17 @@ int     ft_printf(const char *input, ...)
 				}
 				ft_putchar(*input);
 			}
+			if (*input == '.')
+			{
+				input++;
+				/*valnum = ft_atoi(input);
+				printf("valnum = %d\n", valnum);
+				while (valnum >= 0)
+				{
+					ft_printf("valnum = %d\n", valnum);
+					valnum--;
+				}*/
+			}
 			if (*input == '-')
 			{
 				input++;
@@ -188,7 +199,7 @@ int     ft_printf(const char *input, ...)
 					input++;
 					ft_putchar((char)va_arg(args, int));
 				}
-				if(*input == 's')
+				if (*input == 's')
 				{
 					input++;
 					s = va_arg(args, char *);
@@ -224,8 +235,33 @@ int     ft_printf(const char *input, ...)
 				}
 
 			}
-			while (ft_isnum(*input))
-				input++;
+			if (ft_isnum(*input) && *input != '0')
+			{
+				while (ft_isnum(*input) && *input != '0')
+					input++;
+				if (*input == '%')
+					ft_putchar('%');
+				if(*input == '.')
+				{
+					input++;
+					valnum = ft_atoi(input);
+					s = va_arg(args, char *);
+					d = 0;
+					while (valnum > 0 && *s != '\0')
+					{
+						ft_putchar(s[d]);
+						valnum--;
+						d++;
+					}
+					input++;
+					if (*input == 's')
+					{
+						input++;
+						ft_putchar(*input);
+					}
+
+				}
+			}
 			if (*input == 'd' || *input == 'i')
 			{
 				ft_putnbr(va_arg(args, int));
@@ -362,8 +398,8 @@ int     main(void)
 	ft_printf("\n");
 	ft_printf("=========== << novos testes >> ================\n");
 	ft_printf("\n");
-	//ft_printf("	%5%\n");
-	//printf("	%5%\n");
+	ft_printf("%5%<<\n");
+	printf("%5%<<\n");
 	ft_printf("	%-c	<ft_printf\n", c);
 	printf("	%-c	<printf\n", c);
 	ft_printf("	%p	<ft_printf\n", NULL);
@@ -372,6 +408,10 @@ int     main(void)
 	printf("%-5s<<\n","goes over");
 	ft_printf("%5s\n", NULL);
 	printf("%5s\n", NULL);
+	ft_printf("%1.4s<	<ft_printf\n", s);
+	printf("%1.4s<	<printf\n", s);
+	
+
 
 	return (0);
 }
