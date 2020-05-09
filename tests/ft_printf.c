@@ -6,7 +6,7 @@
 /*   By: esuguimo <esuguimo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/02 17:38:51 by esuguimo          #+#    #+#             */
-/*   Updated: 2020/05/09 15:54:32 by esuguimo         ###   ########.fr       */
+/*   Updated: 2020/05/09 18:17:17 by esuguimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ int ft_printf(const char *format, ...)
     char *str;
 	int valor;
     int len;
-	//int *addr;
+	int i;
+	int wlen;
     int width;
     int fill;
     va_list args;
     va_start(args, format);
+	i = 0;
 	
 
     while (*format != '\0')
@@ -61,8 +63,22 @@ int ft_printf(const char *format, ...)
 							|| *format != 'c' || *format != 'i' || *format != 'u'
 							||*format != 'x' || *format != 'X')) // à esquerda, width
 						{
-							width = atoi(format);
+							// width = atoi(format);
+							// format++;
+							width = 0;
+							while (format[i] >= '0' && format[i] <= '9')
+							{
+								width = width * 10 + (format[i] - '0');
+								i++;
+							}
 							format++;
+							wlen = ft_nbrlen(width);
+							i = 1;
+							while (i < wlen)
+							{
+								format++;
+								i++;
+							}
 							if (*format == 'd' || *format == 'i') // valor
 							{
 								fill = 0;
@@ -111,8 +127,20 @@ int ft_printf(const char *format, ...)
 								|| *format != 'c' || *format != 'i' || *format != 'u'
 								||*format != 'x' || *format != 'X')) // à esquerda, width
 					{
-						width = atoi(format);
+						width = 0;
+						while (format[i] >= '0' && format[i] <= '9')
+						{
+							width = width * 10 + (format[i] - '0');
+							i++;
+						}
 						format++;
+						wlen = ft_nbrlen(width);
+						i = 1;
+						while (i < wlen)
+						{
+							format++;
+							i++;
+						}
 						if (*format == 'c') // valor
 						{
 							fill = 0;
@@ -167,7 +195,7 @@ int ft_printf(const char *format, ...)
 							printf("%c", '%');
 							while (fill < width -1)
 							{
-								printf("%c", ' ');
+								printf("%c", '.');
 								fill++;
 							}
 						}
@@ -176,8 +204,20 @@ int ft_printf(const char *format, ...)
 				else if (*format == '0') 
 				{
 					format++;
-					width = atoi(format);
+					width = 0;
+					while (format[i] >= '0' && format[i] <= '9')
+					{
+						width = width * 10 + (format[i] - '0');
+                		i++;
+					}
 					format++;
+					wlen = ft_nbrlen(width);
+					i = 1;
+					while (i < wlen)
+					{
+						format++;
+						i++;
+					}
 					if (*format == 'd' || *format == 'i')
 					{
 						fill = 0;
@@ -235,8 +275,20 @@ int ft_printf(const char *format, ...)
 							|| *format != 'p' || *format != 'c' || *format != 'i'
 							|| *format != 'u' || *format != 'x' || *format != 'X')) // à direita width
 				{
-					width = atoi(format);
+					width = 0;
+					while (format[i] >= '0' && format[i] <= '9')
+					{
+						width = width * 10 + (format[i] - '0');
+                		i++;
+					}
 					format++;
+					wlen = ft_nbrlen(width);
+					i = 1;
+					while (i < wlen)
+					{
+						format++;
+						i++;
+					}
 					if (*format == 'c') // valor corrigir que nao esta bem
 					{
 						fill = 0;
@@ -278,7 +330,7 @@ int ft_printf(const char *format, ...)
 						fill = 0;
 						valor = va_arg(args, int);
 						len = ft_nbrlen(valor);
-						while (fill < (width-len))
+						while (fill < (width - len))
 						{
 							fill++;
 							printf("%c", ' ');
@@ -293,6 +345,7 @@ int ft_printf(const char *format, ...)
 							printf("%c", ' ');
 							fill++;
 						}
+						//printf("%d", width);
 						printf("%c", '%');
 					}
 				}
