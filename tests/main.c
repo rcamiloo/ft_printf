@@ -6,7 +6,7 @@
 /*   By: esuguimo <esuguimo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 21:30:19 by esuguimo          #+#    #+#             */
-/*   Updated: 2020/05/05 00:28:29 by esuguimo         ###   ########.fr       */
+/*   Updated: 2020/05/09 15:51:19 by esuguimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ int main(void)
     int a;
     a = -13;
     printf("\n");
-    ft_printf("alinhamento à esq, espaço vazio= eri%-4dca\n", a);
-    printf("alinhamento à esq, espaço vazio= eri%-4dca\n", a);
+    ft_printf("alinhamento à esq, espaço vazio= eri%-8dca\n", a);
+    printf("alinhamento à esq, espaço vazio= eri%-8dca\n", a);
     printf("\n");
-    ft_printf("alinhamento à direita, espaço vazio = eri%4dca\n", a);
-    printf("alinhamento à direita, espaço vazio = eri%4dca\n", a);
-    printf("\n");
-	printf("\n");
-    ft_printf("alinhamento à esq, zeros - a original dá warning \n%-04d\n", a);
-    //printf("alinhamento à esq, zeros - erro = eri%-06dca\n", a);
+    ft_printf("alinhamento à direita, espaço vazio = eri%8dca\n", a);
+    printf("alinhamento à direita, espaço vazio = eri%8dca\n", a);
     printf("\n");
 	printf("\n");
-    ft_printf("zeros, alinhamento à direita = e%04d\n", a);
-    printf("zeros, alinhamento à direita = e%04d\n", a);
+    ft_printf("alinhamento à esq, zeros - a original dá warning \n%-5c\n", 'a');
+    printf("alinhamento à esq, zeros - erro = \n%-5c\n", 'a');
+    printf("\n");
+	printf("\n");
+    ft_printf("zeros, alinhamento à direita = e%05d\n", a);
+    printf("zeros, alinhamento à direita = e%05d\n", a);
     printf("\n");
 	printf("\n");
     ft_printf("sem flags = e%dca\n", a);
@@ -57,5 +57,27 @@ int main(void)
     printf("original");
     printf("\n");
     printf("erica%-5%erica%-5%erica%-5%");
+    printf("\n");
+    ft_printf("%3d", 0);
+    printf("\n");
+    printf("%3d", 0);
+    printf("\n");
+    char strin[] = "12345678";
+    //a = ft_printf("aqui-TESTE 02:%11s:", strin);
+	printf("\n");
+	printf("aqui-TESTE 02:%11s:", strin);
+	printf("\naqui-TESTE R0: 12345678:");
+    printf("\n");
+	char string7[] = "TESTE 7:%-4s:";
+	//a = ft_printf(string7, "st");
+    printf("\n");
+    printf(string7, "st");
+    printf("\n");
+    
+	printf("original %-016p", &a);
+    printf("\n");
+    ft_printf("ariginol %-p", &a);
+    printf("\n");
+    printf("original %-p", &a);
     printf("\n");
 }

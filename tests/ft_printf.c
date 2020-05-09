@@ -6,76 +6,162 @@
 /*   By: esuguimo <esuguimo@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/02 17:38:51 by esuguimo          #+#    #+#             */
-/*   Updated: 2020/05/05 00:34:49 by esuguimo         ###   ########.fr       */
+/*   Updated: 2020/05/09 15:54:32 by esuguimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-
-int ft_printf(const char * str, ...)
+size_t	ft_nbrlen(int nbr)
 {
-    int decimal;
-    int len;
-    int width = 0;
-    int fill = 0;
-    va_list args;
-    va_start(args, str);
+	int		len;
 
-    while (*str != '\0')
+	len = 0;
+	if (nbr == 0)
+		return (1);
+	if (nbr < len)
+		len += 1;
+	while (nbr != 0)
+	{
+		nbr = nbr / 10;
+		len++;
+	}
+	return (len);
+}
+
+int ft_printf(const char *format, ...)
+{
+    char *str;
+	int valor;
+    int len;
+	//int *addr;
+    int width;
+    int fill;
+    va_list args;
+    va_start(args, format);
+	
+
+    while (*format != '\0')
     {
-        if (*str == '%')// percent 
+        if (*format == '%')// percent 
         {
-            str++;
-			if (*str != '%')//evitando 
+            format++;
+			while (*format == ' ')
 			{
-				if (*str == '-')// aqui toda flag -, à esquerda
+				format++;
+			}
+			if (*format != '%')//evitando 
+			{
+				if (*format == '-')// aqui toda flag -, à esquerda
 				{
-					str++;
-					if (*str == '0')// condição não existe, zero fill
+					format++;
+					if (*format == '0')// condição existe somente para %
 					{
-						str++;
-						width = atoi(str);
-						str++;
-						if (*str == 'd')
+						format++;
+						if (*format > 0 && (*format != 'd' || *format != 's' || *format != 'p'
+							|| *format != 'c' || *format != 'i' || *format != 'u'
+							||*format != 'x' || *format != 'X')) // à esquerda, width
 						{
-							printf("error: flag '0' is ignored when flag '-' is present.");
-							return (-1);
+							width = atoi(format);
+							format++;
+							if (*format == 'd' || *format == 'i') // valor
+							{
+								fill = 0;
+								valor = va_arg(args, int);
+								len = ft_nbrlen(valor);
+								printf("%d", valor);
+								while (fill < (width -len))
+								{
+									printf("%c", ' ');
+									fill++;
+								}
+							}
+							else if (*format == '%')
+							{
+								fill = 0;
+								printf("%c", '%');
+								while (fill < width -1)
+								{
+									printf("%c", ' ');
+									fill++;
+								}
+							}
 						}
-						else if (*str == '%')
+					}
+					else if (*format == 'c')// caracter, à esquerda
+					{
+						valor = va_arg(args, int);
+						printf("%c", valor);
+					}
+					else if (*format == 's')// caracter, à esquerda
+					{
+						str = va_arg(args, char *);
+						printf("%s", str);
+					}
+					else if (*format == 'p')
+					{
+						str = va_arg(args, char *);
+						printf("%p", &str[0]);
+					}
+					else if (*format == 'd' || *format == 'i')// decimal, à esquerda
+					{
+						valor = va_arg(args, int);
+						printf("%d", valor);
+					}
+					else if (*format > 0 && (*format != 'd' || *format != 's' || *format != 'p'
+								|| *format != 'c' || *format != 'i' || *format != 'u'
+								||*format != 'x' || *format != 'X')) // à esquerda, width
+					{
+						width = atoi(format);
+						format++;
+						if (*format == 'c') // valor
 						{
 							fill = 0;
-							printf("%c", '%');
-							while (fill < width -1)
+							valor = va_arg(args, int);
+							len = 1;
+							printf("%c", valor);
+							while (fill < (width - len))
 							{
 								printf("%c", ' ');
 								fill++;
 							}
-							// printf("%c", '%');
 						}
-					}
-					else if (*str == 'd')// decimal, à esquerda
-					{
-						decimal = va_arg(args, int);
-						printf("%d", decimal);
-					}
-					else if (*str > 0 && (*str != 'd' || *str != 's' || *str != 'p'
-								|| *str != 'c' || *str != 'i' || *str != 'u'
-								||*str != 'x' || *str != 'X')) // à esquerda, width
-					{
-						width = atoi(str);
-						str++;
-						if (*str == 'd') // decimal
+						else if (*format == 's') // valor
 						{
-							decimal = va_arg(args, int);
-							printf("%d", decimal);
+							fill = 0;
+							str = va_arg(args, char *);
+							printf("%s", str);
 							len = strlen(str);
-							while (fill < (width - len) +1)
+							while (fill < (width - len))
 							{
 								printf("%c", ' ');
 								fill++;
 							}
 						}
-						else if (*str == '%')
+						else if (*format == 'p')
+						{
+							fill = 0;
+							str = va_arg(args, char *);
+							printf("%p", &str[0]);
+							len = 14;
+							while (fill < (width -len))
+							{
+								printf("%c", ' ');
+								fill++;
+							}
+						}
+						else if (*format == 'd' || *format == 'i') // valor
+						{
+							fill = 0;
+							valor = va_arg(args, int);
+							len = ft_nbrlen(valor);
+							printf("%d", valor);
+							while (fill < (width -len))
+							{
+								printf("%c", ' ');
+								fill++;
+							}
+						}
+						else if (*format == '%')
 						{
 							fill = 0;
 							printf("%c", '%');
@@ -84,31 +170,32 @@ int ft_printf(const char * str, ...)
 								printf("%c", ' ');
 								fill++;
 							}
-						} 
+						}
 					}
 				}
-				else if (*str == '0') 
+				else if (*format == '0') 
 				{
-					str++;
-					width = atoi(str);
-					str++;
-					if (*str == 'd')
+					format++;
+					width = atoi(format);
+					format++;
+					if (*format == 'd' || *format == 'i')
 					{
-						len = strlen(str);
-						decimal = va_arg(args, int);
-						if (decimal < 0)
+						fill = 0;
+						valor = va_arg(args, int);
+						len = ft_nbrlen(valor);
+						if (valor < 0)
 						{
 							printf("%c", '-');
-							decimal = decimal * -1;
+							valor = valor * -1;
 						}
-						while (fill < (width - len) -1)
+						while (fill < (width - len))
 						{
 							printf("%d", 0);
 							fill++;
 						}
-						printf("%d", decimal);
+						printf("%d", valor);
 					}
-					else if (*str == '%')
+					else if (*format == '%')
 					{
 						fill = 0;
 						while (fill < width -1)
@@ -120,30 +207,85 @@ int ft_printf(const char * str, ...)
 					}
 						
 				}
-				else if (*str == 'd') // à direita, decimal, sem flags
+				else if (*format == 'c') // à direita, caracter, sem flags
 				{
 					// aqui se coloca recursao, dá segfault.
-					decimal = va_arg(args, int);
-					printf("%d", decimal);
+					valor = va_arg(args, int);
+					printf("%c", valor);
 				}
-				else if (*str > 0 && (*str != 'd' || *str != 's' 
-							|| *str != 'p' || *str != 'c' || *str != 'i'
-							|| *str != 'u' || *str != 'x' || *str != 'X')) // à direita width
+				else if (*format == 's') // à direita, caracter, sem flags
 				{
-					width = atoi(str);
-					str++;
-					if (*str == 'd') // decimal
+					// aqui se coloca recursao, dá segfault.
+					str = va_arg(args, char *);
+					printf("%s", str);
+				}
+				else if (*format == 'p') // à direita, valor, sem flags
+				{
+					// aqui se coloca recursao, dá segfault.
+					str = va_arg(args, char *);
+					printf("%p", &str[0]);
+				}
+				else if (*format == 'd' || *format == 'i') // à direita, valor, sem flags
+				{
+					// aqui se coloca recursao, dá segfault.
+					valor = va_arg(args, int);
+					printf("%d", valor);
+				}
+				else if (*format > 0 && (*format != 'd' || *format != 's' 
+							|| *format != 'p' || *format != 'c' || *format != 'i'
+							|| *format != 'u' || *format != 'x' || *format != 'X')) // à direita width
+				{
+					width = atoi(format);
+					format++;
+					if (*format == 'c') // valor corrigir que nao esta bem
 					{
-						len = strlen(str);
-						while (fill < (width - len) +1)
+						fill = 0;
+						len = 1;
+						while (fill < (width - len))
 						{
-							printf("%c", ' ');
 							fill++;
+							printf("%c", ' ');
 						}
-						decimal = va_arg(args, int);
-						printf("%d", decimal);
+						valor = va_arg(args, int);
+						printf("%c", valor);
 					}
-					else if (*str == '%')
+					else if (*format == 's') // valor corrigir que nao esta bem
+					{
+						fill = 0;
+						str = va_arg(args, char *);
+						len = strlen(str);
+						while (fill < (width - len))
+						{
+							fill++;
+							printf("%c", ' ');
+						}
+						printf("%s", str);
+					}
+					else if (*format == 'p')
+					{
+						fill = 0;
+						str = va_arg(args, char *);
+						len = 14;
+						while (fill < (width-len))
+						{
+							fill++;
+							printf("%c", ' ');
+						}
+						printf("%p", &str[0]);
+					}
+					else if (*format == 'd' || *format == 'i') // valor corrigir que nao esta bem
+					{
+						fill = 0;
+						valor = va_arg(args, int);
+						len = ft_nbrlen(valor);
+						while (fill < (width-len))
+						{
+							fill++;
+							printf("%c", ' ');
+						}
+						printf("%d", valor);
+					}
+					else if (*format == '%')
 					{
 						fill = 0;
 						while (fill < width -1)
@@ -155,16 +297,16 @@ int ft_printf(const char * str, ...)
 					}
 				}
 			}
-			else if (*str == '%')
+			else if (*format == '%')
 			{
 				printf("%c", '%');
 			}
 		}	
         else// somente string
         {
-          printf("%c", *str);
+          printf("%c", *format);
         }
-        str++;
+        format++;
     }
     va_end(args);
     return (0);
