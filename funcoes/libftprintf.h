@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   libftprintf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kpraca-a <kpraca-a@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/02 15:22:27 by kpraca-a          #+#    #+#             */
-/*   Updated: 2020/05/02 17:53:01 by kpraca-a         ###   ########.fr       */
+/*   Created: 2020/05/01 18:37:22 by kpraca-a          #+#    #+#             */
+/*   Updated: 2020/05/02 17:29:17 by kpraca-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "libftprintf.h"
+#ifndef FT_LIBFTPRINTF_H
+# define FT_LIBFTPRINTF_H
 
-int	main(void)
-{
-	int decimal;
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdarg.h>
+#include "libft.h"
 
-	decimal = 48;
-	
-	printf("Original function\n");
-	printf("A b%  d%dc D", decimal, decimal);
-	printf("\n");
+int		ft_printf(const char *fmt, ...);
+int		ft_writechar(char c);
+int		ft_writenbr(int n);
+int		ft_writestr(char *s);
+char		*ft_writemalloc(int len, char c);
 
-	printf("Function FT_PRINTF\n");
-	ft_printf("A b%  d%dc D", decimal, decimal);
-	printf("\n");
-}
+#endif

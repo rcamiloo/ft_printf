@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpraca-a <kpraca-a@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: kpraca-a <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/02 18:08:47 by kpraca-a          #+#    #+#             */
-/*   Updated: 2020/05/02 18:08:56 by kpraca-a         ###   ########.fr       */
+/*   Created: 2020/03/10 19:04:42 by kpraca-a          #+#    #+#             */
+/*   Updated: 2020/03/10 19:15:37 by kpraca-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_writestr(char *s)
 {
-	write(fd, &c, 1);
+	int size;
+
+	if (s == NULL) // incluído esse if e return
+		return (0);
+
+	size = 0;
+	while (*s != '\0')
+	{
+		size += ft_writechar(*s);
+		s++;
+	}
+
+	return (size);
 }

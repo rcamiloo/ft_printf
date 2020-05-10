@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpraca-a <kpraca-a@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: kpraca-a <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/02 16:45:58 by kpraca-a          #+#    #+#             */
-/*   Updated: 2020/05/02 18:09:04 by kpraca-a         ###   ########.fr       */
+/*   Created: 2020/03/10 18:45:32 by kpraca-a          #+#    #+#             */
+/*   Updated: 2020/04/16 13:31:41 by kpraca-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_writechar(char c)
 {
-	if (n < 0)
-	{
-		ft_putchar_fd('-', fd);
-		if (n == -2147483648)
-		{
-			ft_putchar_fd('2', fd);
-			ft_putnbr_fd(147483648, fd);
-			return ;
-		}
-		n = -n;
-	}
-	if (n > 9)
-		ft_putnbr_fd(n / 10, fd);
-	ft_putchar_fd(n % 10 + 48, fd);
+	if (write(1, &c, 1))
+		return (1);
+	else
+		return (0);
 }

@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpraca-a <kpraca-a@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: kpraca-a <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/01 18:37:22 by kpraca-a          #+#    #+#             */
-/*   Updated: 2020/05/02 17:29:17 by kpraca-a         ###   ########.fr       */
+/*   Created: 2020/01/31 18:39:26 by kpraca-a          #+#    #+#             */
+/*   Updated: 2020/01/31 18:49:46 by kpraca-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdarg.h>
+size_t	ft_strlen(const char *str)
+{
+	size_t i;
 
-int	ft_printf(const char *fmt, ...);
-void	ft_putnbr_fd(int n, int fd);
-void	ft_putchar_fd(char c, int fd);
-
-#endif
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
