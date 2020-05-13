@@ -172,9 +172,8 @@ int     ft_printf(const char *input, ...)
 			if (*input == '.')
 			{
 				input++;
-				/*valnum = ft_atoi(input);
-				printf("valnum = %d\n", valnum);
-				while (valnum >= 0)
+				valnum = ft_atoi(input);	
+				/*while (valnum >= 0)
 				{
 					ft_printf("valnum = %d\n", valnum);
 					valnum--;
@@ -219,7 +218,7 @@ int     ft_printf(const char *input, ...)
 				length--;
 				valnum--;
 				}
-				while (valnum > 1)
+				while (valnum > 1 && *input++ != '%')
 				{
 					ft_putchar(' ');
 					valnum--;
@@ -242,8 +241,22 @@ int     ft_printf(const char *input, ...)
 			}
 			if (ft_isnum(*input) && *input != '0')
 			{
+				valnum = ft_atoi(input);
 				while (ft_isnum(*input) && *input != '0')
+				{
 					input++;
+				}
+				//parte nova
+				/*while (valnum > 0 && *input != '%')
+				{	
+					if (*input == 's')
+					{
+						valnum--;
+					}
+					ft_putchar(' ');
+					valnum--;
+				}*/
+				//fim parte nova
 				if (*input == '%')
 					ft_putchar('%');
 				if(*input == '.')
@@ -416,8 +429,12 @@ int     main(void)
 	ft_printf("%1.4s<	<ft_printf\n", s);
 	printf("%1.4s<	<printf\n", s);
 	ft_printf("%.s<	<ft_printf\n", NULL);
-	printf("%.s<	<printf\n", NULL);	
-
-
+	printf("%.s<	<printf\n", NULL);
+	ft_printf("%-5%<\n");
+	printf("%-5%<\n");
+	ft_printf("%23s\n", NULL);
+	printf("%23s\n", NULL);
+	ft_printf("%.0s\n", "hello");
+	printf("%.0s\n", "hello");
 	return (0);
 }

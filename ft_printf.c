@@ -95,7 +95,7 @@ int     ft_printf(const char *input, ...)
 				length--;
 				valnum--;
 				}
-				while (valnum > 1)
+				while (valnum > 1 && *input++ != '%')
 				{
 					ft_putchar(' ');
 					valnum--;
