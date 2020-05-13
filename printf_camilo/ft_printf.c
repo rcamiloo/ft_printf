@@ -6,14 +6,12 @@
 /*   By: camilo <camilo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/02 17:13:22 by rcamilo-          #+#    #+#             */
-/*   Updated: 2020/05/09 17:41:20 by camilo           ###   ########.fr       */
+/*   Updated: 2020/05/12 22:54:32 by camilo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <limits.h>
-#include <stdarg.h>
+#include "ft_printf.h"
+
 
 void	ft_putchar(char c)
 {
@@ -30,75 +28,77 @@ void	ft_putstr(char *s)
 		}
 }
 
-void	ft_putnbr(int n)
+int	    ft_putnbr(int n)
 {
-	if (n == -2147483648)
+	int count;
+    
+    count = 1;
+    if (n == -2147483648)
 	{
 		ft_putstr("-2147483648");
-		return ;
+		return (10);
 	}
 	else
 	{
 		if (n < 0)
 		{
 			ft_putchar('-');
-			n = n * -1;
+            n = n * -1;
+            count++;
 		}
 		if (n >= 10)
-			ft_putnbr(n / 10);
+			count = count + ft_putnbr(n / 10);
 		ft_putchar((n % 10 + '0'));
 	}
+    return (count);
 }
 
-
-int     ft_printf(const char *str, ...)
+int     ft_nbrlen(int n)
 {
-    va_list args;
-    size_t  count;
-    flag    flags;
-
-    count = 0;
+	int count;
     
-    va_start(args, str);
-    while(*str)
-    {
-        if(*str == '%')
-        {
-            str++;
-            init_flag();
-            if(read_flags(str, &flags) >= 0)
-
-                ;
-
-            if (*str == 'd')
-            {
-                ft_putnbr(va_arg(args, int));
-            }
-            else if (*str == 's')
-            {
-                 ft_putstr(va_arg(args, char *));
-            }
-            
-        }
-        else
-        {
-            ft_putchar(*str);
-        }
-       str++;
-    }
-    va_end(args);
-    return (0);
+    count = 1;
+    if (n == -2147483648)
+		return (10);
+	else
+	{
+		if (n < 0)
+		{
+            n = n * -1;
+            count++;
+		}
+		if (n >= 10)
+			count = count + ft_nbrlen(n / 10);
+	}
+    return (count);
 }
 
+int     printf_d(flag *f, int n)
+{
+    int count;
+    int size_nbr;
 
-typedef struct 
-{   
-    int zero;
-    int minus;
-    int precision;
-    int width;
-    char type;
-} flag;
+    size_nbr = ft_nbrlen(n);
+    count = 0;
+    if (f->size == 0 || (size_nbr >= f->width && size_nbr >= f->precision))
+        return (ft_putnbr(n));
+    if (f->precision >= f->width)
+    {
+        count = f->precision - size_nbr; 
+        while (size_nbr < f->precision) 
+            return (count);
+    }
+    return (count);
+
+}
+
+int     print_case(flag *flags, va_list args)
+{
+    
+    if (flags->type == 'd')
+        return (printf_d(flags, va_arg(args, int)));
+    return (-1);
+}
 
 void    init_flag(flag *f)
 {
@@ -106,6 +106,7 @@ void    init_flag(flag *f)
     f->minus = 0;
     f->precision = -1;
     f->width = 0;
+    f->size = 0;
     f->type = '\0';
 }
 
@@ -121,7 +122,7 @@ int     ft_isconversion(int c)
 			|| c == 'i' || c == 'u' || c == 'x' || c == 'X');
 }
 
-int     read_flags(char *s, flag *flags)
+int     read_flags(const char *s, flag *flags)
 {
     int len;
     int i;
@@ -168,13 +169,52 @@ int     read_flags(char *s, flag *flags)
             }
         }
     }
+    flags->size = i;
     return (i);
 }
+
+int     ft_printf(const char *str, ...)
+{
+    va_list args;
+    size_t  count;
+    flag    flags;
+
+    count = 0;
+    
+    va_start(args, str);
+    while(*str)
+    {
+        if(*str == '%')
+        {
+            str++;
+            init_flag(&flags);
+            if(read_flags(str, &flags) >= 0)
+            {   
+                str = str + read_flags(str, &flags);
+                count = count + print_case(&flags, args);
+            }
+            else if (*str == 's')
+            {
+                 ft_putstr(va_arg(args, char *));
+            }
+            
+        }
+        else
+        {
+            ft_putchar(*str);
+        }
+       str++;
+    }
+    va_end(args);
+    return (0);
+}
+
+
 
 
 int    main()
 {
-    ft_printf("%dmaria %c de baixo %d\n%d\n%d\n%d\n%s hoje não tem nada %s%%\n", 2, 112580, 10, 3, -5000, "joão", "josé");
+    ft_printf("teste 1: %d asdf\nNova linha", -10);
     return (0);
 }
 
