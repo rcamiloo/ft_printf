@@ -1,5 +1,7 @@
-#include "libftprintf.h"
+//#include "libftprintf.h"
 #include <stdarg.h>
+#include <stdio.h>
+#include <unistd.h>
 
 
 
@@ -11,28 +13,53 @@ typedef struct
       int zero;
       int star; // nao existir 0/precisao 1/ largura 2/ ambos 3
       int point;
-      int num;
+      int width;
 
 }flags;
 
-int ft_print_flag(flags, agrs)
+void    ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+
+int ft_print_flag(flags data, va_list args)
 {
   if (data.type == 'd')
   {
-    ft_print_d(data, va_arg(args, int));
+    // ft_print_d(data, va_arg(args, int));
+    printf("data minus = %d\n", data.minus);
+    printf("zero = %d\n", data.zero);
+    printf("star =%d\n", data.star);
+    printf("point = %d\n", data.point);
+    printf("width = %d\n", data.width);
   }
 
 }
 
-int ft_read_flag(data, str)
+int	ft_isnum(char n)
+{
+	if (n < '0' || n > '9')
+		return  (0);
+	return (1);
+}
+
+int     ft_isconversion(int c)
+{
+    return (c == 'c' || c == 's' || c == 'p' || c == 'd'
+			|| c == 'i' || c == 'u' || c == 'x' || c == 'X');
+}
+
+int ft_read_flag(flags *data, const char *str)
 {
   int i;
 
   i = 0;
-  while (!(str[i] == '-' || str[i] == '*' || ft_isnum(str[i]) || str[i] == '.'))
+  while ((str[i] == '-' || str[i] == '*' || ft_isnum(str[i]) || str[i] == '.'))
     i++;
   if (!(ft_isconversion(str[i])))
     return (0);
+  data->type = str[i];
   i = 0;
   if (str[i] == '0')
   {
@@ -45,13 +72,18 @@ int ft_read_flag(data, str)
     data->zero = 0;
     i++;
   }
-  if (str[i] >= '0' && str[i] <= '9')
+  if (ft_isnum(str[i]))
   {
-    while (str[i] >= '0' && str[i] <= '9')
+    while (ft_isnum(str[i]))
     {
       data->width = (data->width * 10) + (str[i] - '0');
       i++;
     }
+  }
+  if (str[i] == '*')
+  {
+    data->star == 1;
+    i++;
   }
   if (str[i] == '.')
   {
@@ -63,6 +95,13 @@ int ft_read_flag(data, str)
       i++;
     }
   }
+
+  if (str[i] == '*' && data->point >= 0)
+  {
+    data->star = (data->star > 0) ? 3 : 2;
+    i++;
+  }
+  return (i);
 }
 
 void ft_init_data(flags *data)
@@ -89,9 +128,10 @@ int ft_printf(const char *str,...)
     {
       str++;
       ft_init_data(&data);
-      if (flags)
+      if (ft_read_flag(&data, str))
       {
-        ft_print_flag(flags, agrs);
+        str = str + ft_print_flag(data, args) - 1;//- 1 funciona ! como pode?
+	
       }
     }
     else
@@ -100,4 +140,12 @@ int ft_printf(const char *str,...)
     }
     str++;
   }
+}
+
+int main(void)
+{
+  ft_printf("teste\n");
+  ft_printf("teste %23d\n", 1);
+  printf("teste\n");
+  return (0);
 }
