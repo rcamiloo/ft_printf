@@ -6,7 +6,7 @@
 /*   By: camilo <camilo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/02 17:13:22 by rcamilo-          #+#    #+#             */
-/*   Updated: 2020/05/12 22:54:32 by camilo           ###   ########.fr       */
+/*   Updated: 2020/05/14 17:57:47 by camilo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,9 +208,6 @@ int     ft_printf(const char *str, ...)
     va_end(args);
     return (0);
 }
-
-
-
 
 int    main()
 {
