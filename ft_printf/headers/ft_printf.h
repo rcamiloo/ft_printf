@@ -6,7 +6,7 @@
 /*   By: rcamilo- <rcamilo-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 23:27:22 by rcamilo-          #+#    #+#             */
-/*   Updated: 2020/05/15 01:43:58 by camilo           ###   ########.fr       */
+/*   Updated: 2020/05/15 02:28:11 by rcamilo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ int				ft_isnum(char n);
 int				ft_isconversion(int c);
 int				ft_read_flag(t_flags *data, const char *str);
 int				ft_printf(const char *str, ...);
+void			ft_check_flags (const char f, t_flags *data);
 
 #endif
