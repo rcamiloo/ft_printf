@@ -6,7 +6,7 @@
 /*   By: rcamilo- <rcamilo-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/14 23:31:23 by rcamilo-          #+#    #+#             */
-/*   Updated: 2020/05/15 00:13:09 by rcamilo-         ###   ########.fr       */
+/*   Updated: 2020/05/15 00:50:34 by rcamilo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 int		ft_print_flag(t_flags data, va_list args)
 {
 	if (data.type == 'd' || data.type == 'i')
-		ft_print_d(data, args);
-	return (0);
+		return (ft_print_d(data, args));
 }
 
 int		ft_read_flag(t_flags *data, const char *str)
@@ -74,8 +73,10 @@ int ft_printf(const char *str,...)
 	va_list args;
 	t_flags   data;
 	int val;
+	int count;
 
 	val = 0;
+	count = 0;
 	va_start(args, str);
 	while (*str)
 	{
@@ -85,7 +86,7 @@ int ft_printf(const char *str,...)
 			ft_init_data(&data);
 			if ((val = ft_read_flag(&data, str)) >= 0)
 			{
-				ft_print_flag(data, args);
+				count = count + ft_print_flag(data, args);
 				str = str + val  + 1 ;
 			}
 		}
@@ -93,7 +94,8 @@ int ft_printf(const char *str,...)
 		{
 			ft_putchar(*str);
 			str++;
+			count++;
 		}
 	}
-	return (0);
+	return (count);
 }

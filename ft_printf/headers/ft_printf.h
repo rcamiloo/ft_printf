@@ -29,7 +29,7 @@ typedef struct s_flags
 } t_flags;
 
 void	ft_putchar(char c);
-void	ft_putnbr(int nb);
+int		ft_putnbr(int nb);
 void	ft_init_data(t_flags *data);
 int		ft_atoi(const char *str);
 int		ft_print_d(t_flags data, va_list args);
