@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camilo <camilo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcamilo- <rcamilo-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/02 17:13:22 by rcamilo-          #+#    #+#             */
-/*   Updated: 2020/05/14 17:57:47 by camilo           ###   ########.fr       */
+/*   Updated: 2020/05/15 00:13:09 by rcamilo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../headers/ft_printf.h"
 
 
 void	ft_putchar(char c)
@@ -31,7 +31,7 @@ void	ft_putstr(char *s)
 int	    ft_putnbr(int n)
 {
 	int count;
-    
+
     count = 1;
     if (n == -2147483648)
 	{
@@ -56,7 +56,7 @@ int	    ft_putnbr(int n)
 int     ft_nbrlen(int n)
 {
 	int count;
-    
+
     count = 1;
     if (n == -2147483648)
 		return (10);
@@ -84,8 +84,8 @@ int     printf_d(flag *f, int n)
         return (ft_putnbr(n));
     if (f->precision >= f->width)
     {
-        count = f->precision - size_nbr; 
-        while (size_nbr < f->precision) 
+        count = f->precision - size_nbr;
+        while (size_nbr < f->precision)
             return (count);
     }
     return (count);
@@ -94,7 +94,7 @@ int     printf_d(flag *f, int n)
 
 int     print_case(flag *flags, va_list args)
 {
-    
+
     if (flags->type == 'd')
         return (printf_d(flags, va_arg(args, int)));
     return (-1);
@@ -126,7 +126,7 @@ int     read_flags(const char *s, flag *flags)
 {
     int len;
     int i;
-    
+
 
     len =0;
     i = 0;
@@ -180,7 +180,7 @@ int     ft_printf(const char *str, ...)
     flag    flags;
 
     count = 0;
-    
+
     va_start(args, str);
     while(*str)
     {
@@ -189,7 +189,7 @@ int     ft_printf(const char *str, ...)
             str++;
             init_flag(&flags);
             if(read_flags(str, &flags) >= 0)
-            {   
+            {
                 str = str + read_flags(str, &flags);
                 count = count + print_case(&flags, args);
             }
@@ -197,7 +197,7 @@ int     ft_printf(const char *str, ...)
             {
                  ft_putstr(va_arg(args, char *));
             }
-            
+
         }
         else
         {
@@ -216,7 +216,7 @@ int    main()
 }
 
 
-           
+
 
 
 

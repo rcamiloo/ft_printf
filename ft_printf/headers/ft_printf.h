@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ../headers/ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: camilo <camilo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rcamilo- <rcamilo-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/12 19:23:18 by camilo            #+#    #+#             */
-/*   Updated: 2020/05/12 22:51:29 by camilo           ###   ########.fr       */
+/*   Created: 2020/05/14 23:27:22 by rcamilo-          #+#    #+#             */
+/*   Updated: 2020/05/14 23:59:27 by rcamilo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,26 @@
 # include <limits.h>
 # include <stdarg.h>
 
-typedef struct
+typedef struct s_flags
 {
-    int zero;
+	char type;
     int minus;
-    int precision;
+    int zero;
+    int star;
+    int point;
     int width;
-    int size;
-    char type;
-} flag;
+
+} t_flags;
 
 void	ft_putchar(char c);
-void	ft_putstr(char *s);
-int	    ft_putnbr(int n);
-int	    ft_nbrlen(int n);
-int     printf_d(flag *f, int n);
-int     print_case(flag *flags, va_list args);
-void    init_flag(flag *f);
-int		ft_isspace(int c);
-int     ft_isconversion(int c);
-int     read_flags(const char *s, flag *flags);
-int     ft_printf(const char *str, ...);
+void	ft_putnbr(int nb);
+void	ft_init_data(t_flags *data);
+int		ft_atoi(const char *str);
+int		ft_print_d(t_flags data, va_list args);
+int		ft_print_flag(t_flags data, va_list args);
+int		ft_isnum(char n);
+int		ft_isconversion(int c);
+int		ft_read_flag(t_flags *data, const char *str);
+int		ft_printf(const char *str,...);
 
 #endif
