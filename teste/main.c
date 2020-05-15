@@ -172,7 +172,7 @@ int     ft_printf(const char *input, ...)
 			if (*input == '.')
 			{
 				input++;
-				valnum = ft_atoi(input);	
+				valnum = ft_atoi(input);
 				/*while (valnum >= 0)
 				{
 					ft_printf("valnum = %d\n", valnum);
@@ -248,7 +248,7 @@ int     ft_printf(const char *input, ...)
 				}
 				//parte nova
 				/*while (valnum > 0 && *input != '%')
-				{	
+				{
 					if (*input == 's')
 					{
 						valnum--;
