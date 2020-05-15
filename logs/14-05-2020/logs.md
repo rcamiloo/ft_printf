@@ -24,5 +24,4 @@ Fechamento do projeto
 ### Nossa time line de commits
 
 ![Parte 2](commits_parte_2.jpeg)
-
 ![Parte 1](commits_parte_1.jpeg)
